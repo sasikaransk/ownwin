@@ -1,4 +1,4 @@
-name: Windows - LiteManager
+name: Windows - AnyDesk
 
 on:
   workflow_dispatch:
@@ -12,18 +12,14 @@ jobs:
     steps:
       - name: Downloading & Installing Essentials
         run: |
-          # Download the Downloads.bat script
           Invoke-WebRequest -Uri "https://gitlab.com/msksasikaran/sasiwintest/-/raw/main/Downloads.bat" -OutFile "Downloads.bat"
-          
-          # Check if the Downloads.bat file exists and is not empty
           if ((Test-Path -Path "Downloads.bat") -and ((Get-Item -Path "Downloads.bat").Length -gt 0)) {
-              # Make sure the script is executed from the current directory
               ./Downloads.bat
           } else {
               Write-Error "Downloads.bat file not found or is empty"
           }
 
-      - name: Connect to LiteManager
+      - name: Connect to AnyDesk
         run: |
           if ((Test-Path -Path "show.bat") -and ((Get-Item -Path "show.bat").Length -gt 0)) {
               cmd /c show.bat
@@ -38,4 +34,3 @@ jobs:
           } else {
               Write-Error "loop.bat file not found or is empty"
           }
-
