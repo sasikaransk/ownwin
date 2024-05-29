@@ -13,24 +13,10 @@ jobs:
       - name: Downloading & Installing Essentials
         run: |
           Invoke-WebRequest -Uri "https://gitlab.com/msksasikaran/sasiwintest/-/raw/main/Downloads.bat" -OutFile "Downloads.bat"
-          if ((Test-Path -Path "Downloads.bat") -and ((Get-Item -Path "Downloads.bat").Length -gt 0)) {
-              ./Downloads.bat
-          } else {
-              Write-Error "Downloads.bat file not found or is empty"
-          }
+          cmd /c Downloads.bat
 
       - name: Connect to AnyDesk
-        run: |
-          if ((Test-Path -Path "show.bat") -and ((Get-Item -Path "show.bat").Length -gt 0)) {
-              cmd /c show.bat
-          } else {
-              Write-Error "show.bat file not found or is empty"
-          }
+        run: cmd /c show.bat
 
       - name: Time Counter
-        run: |
-          if ((Test-Path -Path "loop.bat") -and ((Get-Item -Path "loop.bat").Length -gt 0)) {
-              cmd /c loop.bat
-          } else {
-              Write-Error "loop.bat file not found or is empty"
-          }
+        run: cmd /c loop.bat
