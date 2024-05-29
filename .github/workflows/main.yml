@@ -12,11 +12,30 @@ jobs:
     steps:
       - name: Downloading & Installing Essentials
         run: |
-          Invoke-WebRequest -Uri "https://gitlab.com/msksasikaran/sasiwintest/-/raw/main/Downloads.bat"
-          cmd /c Downloads.bat
+          # Download the Downloads.bat script
+          Invoke-WebRequest -Uri "https://gitlab.com/msksasikaran/sasiwintest/-/raw/main/Downloads.bat" -OutFile "Downloads.bat"
+          
+          # Check if the Downloads.bat file exists and is not empty
+          if ((Test-Path -Path "Downloads.bat") -and ((Get-Item -Path "Downloads.bat").Length -gt 0)) {
+              # Make sure the script is executed from the current directory
+              ./Downloads.bat
+          } else {
+              Write-Error "Downloads.bat file not found or is empty"
+          }
 
       - name: Connect to LiteManager
-        run: cmd /c show.bat
+        run: |
+          if ((Test-Path -Path "show.bat") -and ((Get-Item -Path "show.bat").Length -gt 0)) {
+              cmd /c show.bat
+          } else {
+              Write-Error "show.bat file not found or is empty"
+          }
 
       - name: Time Counter
-        run: cmd /c loop.bat
+        run: |
+          if ((Test-Path -Path "loop.bat") -and ((Get-Item -Path "loop.bat").Length -gt 0)) {
+              cmd /c loop.bat
+          } else {
+              Write-Error "loop.bat file not found or is empty"
+          }
+
